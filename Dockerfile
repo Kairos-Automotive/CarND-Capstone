@@ -15,11 +15,6 @@ RUN apt-get install -y ros-$ROS_DISTRO-dbw-mkz
 RUN apt-get upgrade -y
 # end installing Dataspeed DBW
 
-# install python packages
-RUN apt-get install -y python-pip
-COPY requirements.txt ./requirements.txt
-RUN pip install -r requirements.txt
-
 # install required ros dependencies
 RUN apt-get install -y ros-$ROS_DISTRO-cv-bridge
 RUN apt-get install -y ros-$ROS_DISTRO-pcl-ros
@@ -27,6 +22,10 @@ RUN apt-get install -y ros-$ROS_DISTRO-image-proc
 
 # socket io
 RUN apt-get install -y netbase
+
+# install python packages
+RUN apt-get install -y python-pip; pip install --upgrade "pip==0.9.1"
+RUN pip install "Flask==0.12.2" "attrdict==2.0.0" "eventlet==0.21.0" "python-socketio==1.8.1" "numpy==1.13.3" "Pillow==4.3.0" "scipy==0.19.1" "keras==1.2.0" "tensorflow==1.0.0"
 
 RUN mkdir /capstone
 VOLUME ["/capstone"]

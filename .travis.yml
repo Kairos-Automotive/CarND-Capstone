@@ -1,15 +1,22 @@
 language: cpp
 sudo: required
 services:
-    - docker
+  - docker
 dist: trusty
 os: linux
 install: skip
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y install docker-ce
+  - docker --version
 script:
-    - docker build . -t capstone
-    - docker run -p 127.0.0.1:4567:4567 -v $PWD:/capstone -v /tmp/log:/root/.ros/ --rm --workdir /capstone/ros capstone  /opt/ros/kinetic/bin/catkin_make 
+  - docker pull kairosautomotive/carla-brain:latest 
+  - docker build . --cache-from kairosautomotive/carla-brain:latest -t capstone
+  - docker run -p 127.0.0.1:4567:4567 -v $PWD:/capstone -v /tmp/log:/root/.ros/ --rm --workdir /capstone/ros capstone  /opt/ros/kinetic/bin/catkin_make 
 notifications:
-    email:
-        on_success: change
-        on_failure: always
+  email:
+      on_success: change
+      on_failure: always
 
