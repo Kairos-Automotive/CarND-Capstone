@@ -1,11 +1,11 @@
 # Self Driving Car Engineer Nanodegree -- Capstone project
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/79ddbbe506054e43859247d9fd0b11b5)](https://www.codacy.com/app/Kairos-Automotive/carla-brain?utm_source=github.com&utm_medium=referral&utm_content=Kairos-Automotive/carla-brain&utm_campaign=badger)
-[![Build Status](https://travis-ci.org/Kairos-Automotive/carla-brain.svg?branch=master)](https://travis-ci.org/Kairos-Automotive/carla-brain)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/79ddbbe506054e43859247d9fd0b11b5)](https://www.codacy.com/app/Kairos-Automotive/carla-brain?utm_source=github.com&utm_medium=referral&utm_content=Kairos-Automotive/carla-brain&utm_campaign=badger) 
+[![Build Status](https://travis-ci.org/Kairos-AutomotAive/carla-braAin.svg?branch=master)](https://travis-ci.org/Kairos-Automotive/carla-brain) 
+[![Docker Status](https://dockerbuildbadges.quelltext.eu/status.svg?organization=kairosautomotive&repository=carla-brain)](https://hub.docker.com/r/kairosautomotive/carla-brain/) 
 
 This is the project repo for the final project of the Udacity
 Self-Driving Car Nanodegree: Programming a Real Self-Driving Car.
-
 
 ## Team Members
 
@@ -43,12 +43,17 @@ The Udacity provided virtual machine has ROS and Dataspeed DBW already installed
 
 Build the docker container
 ```bash
-docker build . -t capstone
+docker build . -t kairosautomotive/carla-brain:latest
+```
+
+or pull the latest docker container from dockerhub
+```bash
+docker pull kairosautomotive/carla-brain:latest
 ```
 
 Run the docker file
 ```bash
-docker run -p 127.0.0.1:4567:4567 -v $PWD:/capstone -v /tmp/log:/root/.ros/ --rm -it capstone
+docker run -p 127.0.0.1:4567:4567 -v $PWD:/capstone -v /tmp/log:/root/.ros/ --rm -it kairosautomotive/carla-brain
 ```
 
 ### Simulator
