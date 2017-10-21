@@ -24,13 +24,13 @@ class WaypointLoader(object):
 
         self.velocity = self.kmph2mps(rospy.get_param('~velocity'))
         self.new_waypoint_loader(rospy.get_param('~path'))
-        rospy.spin()
+        #rospy.spin()
 
     def new_waypoint_loader(self, path):
         if os.path.isfile(path):
             waypoints = self.load_waypoints(path)
             self.publish(waypoints)
-            rospy.loginfo('Waypoint Loded')
+            rospy.loginfo('Waypoints loaded and published once')
         else:
             rospy.logerr('%s is not a file', path)
 
@@ -72,11 +72,14 @@ class WaypointLoader(object):
         return waypoints
 
     def publish(self, waypoints):
-        lane = Lane()
-        lane.header.frame_id = '/world'
-        lane.header.stamp = rospy.Time(0)
-        lane.waypoints = waypoints
-        self.pub.publish(lane)
+        rate = rospy.Rate(0.1)
+        while not rospy.is_shutdown():
+            lane = Lane()
+            lane.header.frame_id = '/world'
+            lane.header.stamp = rospy.Time(0)
+            lane.waypoints = waypoints
+            self.pub.publish(lane)
+            rate.sleep()
 
 
 if __name__ == '__main__':

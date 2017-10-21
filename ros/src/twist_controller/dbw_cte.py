@@ -11,7 +11,7 @@ def compute_cte(waypoints, pose):
     """
     xs, ys = get_points_wrt_pose(waypoints[:WAYPOINTS_LOOKAHEAD], pose)
     fit = np.poly1d(np.polyfit(xs, ys, 2))
-    cte = fit(2)
+    cte = fit(5)
 
     return cte
 
