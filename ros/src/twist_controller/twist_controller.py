@@ -52,7 +52,7 @@ class Controller(object):
         # current kp, ki and kd are values found from previous twiddle runs.
         self.steer_pid = PIDWithTwiddle("steering PID", kp=0.607900, ki=0.000172, kd=1.640951,
                                         mn=-max_steer_angle, mx=max_steer_angle,
-                                        optimize_params=False, iterations=10, tolerance=0.05)
+                                        optimize_params=True, iterations=10, tolerance=0.05)
         self.accel_pid = PIDWithTwiddle("t/b PID", kp=1.806471, ki=0.00635, kd=0.715603,
                                         mn=decel_limit, mx=accel_limit,
                                         optimize_params=False, iterations=10, tolerance=0.05)
@@ -93,7 +93,8 @@ class Controller(object):
             corrective_steer = self.steer_pid.step(
                 error=cte, sample_time=sample_time)
 
-            steer = CORR_STEERING_FACTOR * corrective_steer + PRED_STEERING_FACTOR * predictive_steer
+            # steer = CORR_STEERING_FACTOR * corrective_steer + PRED_STEERING_FACTOR * predictive_steer
+            steer = corrective_steer
 
             rospy.logdebug('steer = %f, cte = %f, corrective_steer = %f, predictive_steer = %f',
                            steer, cte, corrective_steer, predictive_steer)
